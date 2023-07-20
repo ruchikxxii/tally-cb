@@ -99,7 +99,9 @@ body {
     padding: 1em;
   }
 }
-
+:hover #start-exploring-button{
+  cursor: pointer;
+}
 #start-exploring-button {
   width: 100%;
   position: relative;

@@ -1,9 +1,13 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-
+import { useRouter } from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const router =useRouter();
+  function changePage(){
+    router.push('/test');
+  }
   return (
     <div className="page my-16 text-white">
       <section className="hero-section">
@@ -20,9 +24,9 @@ export default function Home() {
 
           <div className="hero__cta text-base leading-7">
             Ready to test your typing speed and compete with the fastest? Join
-            now and become a typing champion!
+            now and become a typing wizz!
           </div>
-          <a href="./search.html" id="start-exploring-button">
+          <a onClick={changePage}  id="start-exploring-button">
             <div className="start-exploring__arrow" />
             Get Started
             <div className="start-exploring__arrow" />
@@ -31,25 +35,24 @@ export default function Home() {
         </div>
         <div className="hero__aside">
           <div className="words-row">
-            <span>Neighbour Dulla Phoenix&nbsp;</span>
-            <span>Neighbour Dulla Phoenix&nbsp;</span>
+            <span>Speed WPM Swift&nbsp;</span>
+            <span>Speed WPM Swift&nbsp;</span>
           </div>
           <div className="words-row">
-            <span>Senior Junior Homie Litesian&nbsp;</span>
-            <span>Senior Junior Homie Litesian&nbsp;</span>
+            <span>Keyboard Challenge Typing Fast&nbsp;</span>
+            <span>Keyboard Challenge Typing Fast&nbsp;</span>
           </div>
           <div className="words-row">
-            <span>Alumnus Peer Ghot Snake&nbsp;</span>
-            <span>Alumnus Peer Ghot Snake&nbsp;</span>
+            <span>Finger Race Champion Reflex&nbsp;</span>
+            <span>Finger Race Champion Reflex&nbsp;</span>
           </div>
           <div className="words-row">
-            <span>Crush Roomie Topper Rival&nbsp;</span>
-            <span>Crush Roomie Topper Rival&nbsp;</span>
+            <span>Accuracy Keystrokes Wizard Rapid&nbsp;</span>
+            <span>Accuracy Keystrokes Wizard Rapid&nbsp;</span>
           </div>
         </div>
       </section>
       <section className="features-section">
-        {/* PWA, Open Source, Updated with SWD */}
       </section>
     </div>
   );
