@@ -27,7 +27,7 @@ export default function Practice() {
   };
   function handleKeyPress(e) {
     console.log(e);
-    if ((e.keyCode!=8 && e.keyCode!=16)) {
+    if ((e.keyCode!=8 && e.keyCode!=16 && e.keyCode!=20)) {
       setUserInput((curr) => curr + e.key);
       console.log(userInput);
     } else if (e.keyCode == 8) {
