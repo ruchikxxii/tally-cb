@@ -10,15 +10,16 @@ const sentences = [
 ];
 
 const TypingSpeedTest = () => {
+  // function handleKeyPress() {
+  //   console.log("You pressed a key.");
+  // }
   return (
-    <div className="h-screen flex flex-col  justify-center  bg-white">
-      {/* <div className=" basis-1/6">
-        <h1 className="text-white font-bold text-lg">
-          something navbar related??
-        </h1>
-      </div> */}
-      <div className="basis-5/6 flex flex-row justify-center">
-        <Tabs variant="soft-rounded">
+    <div className="h-screen flex flex-col  justify-center  bg-white w-full">
+      <div
+        className="basis-5/6 flex flex-row justify-center"
+        // onKeyDown={handleKeyPress}
+      >
+        <Tabs isFitted variant="soft-rounded" className=" w-full">
           <TabList>
             <Tab>Practice Mode</Tab>
             <Tab>Multi-player Mode</Tab>
