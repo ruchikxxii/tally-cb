@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Input, FormControl } from "@chakra-ui/react";
+import StartAnimation from "./startAnim";
 export default function Practice() {
   const sentences = [
     "The quick brown fox jumps over the lazy dog.",
@@ -38,7 +39,7 @@ export default function Practice() {
   }
   return (
     <div
-      className=" flex items-center justify-center text-black"
+      className=" flex items-center justify-center flex-col text-black"
       onKeyDown={handleKeyPress}
     >
       <div className="p-4 rounded-lg shadow-md">
@@ -60,6 +61,7 @@ export default function Practice() {
           className="hidden text-black px-2 py-1 border border-gray-300 rounded-md w-full"
         />
       </div>
+      <StartAnimation/>
     </div>
   );
 }
