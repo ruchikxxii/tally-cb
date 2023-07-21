@@ -14,14 +14,14 @@ import { useRouter } from "next/router";
 import { gameContext } from "@/context/room";
 import { useContext } from "react";
 function PracticeDetails() {
-  const {username,setUsername}=useContext(gameContext)
+  const { username, setUsername } = useContext(gameContext);
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
   const [speed, setSpeed] = useState(0);
   const router = useRouter();
-  useEffect(()=>{
+  useEffect(() => {
     console.log(username);
-  },[username]);
+  }, [username]);
   const handleSubmit = () => {
     // Handle form submission here
     console.log("Name:", name);
@@ -35,8 +35,6 @@ function PracticeDetails() {
     <ChakraProvider>
       <Box
         p={4}
-        // borderWidth={1}
-        // borderRadius="lg"
         boxShadow="lg"
         className="text-slate-100 w-1/2 flex flex-col gap-6 mt-10"
       >
@@ -54,8 +52,6 @@ function PracticeDetails() {
             onChange={(e) => setName(e.target.value)}
             isRequired
           />
-       
-
 
           <FormLabel htmlFor="time" fontSize="2xl">
             Time
@@ -90,18 +86,18 @@ function PracticeDetails() {
             </Stack>
           </RadioGroup>
 
-        <Button
-          colorScheme="teal"
-          size="lg"
-          variant="solid"
-          isDisabled={!name || time==0 || speed==0}
-          onClick={handleSubmit} 
-          mt={4}
-          w={32}
-          type="submit"
-        >
-          Start
-        </Button>
+          <Button
+            colorScheme="teal"
+            size="lg"
+            variant="solid"
+            isDisabled={!name || time == 0 || speed == 0}
+            onClick={handleSubmit}
+            mt={4}
+            w={32}
+            type="submit"
+          >
+            Start
+          </Button>
         </FormControl>
       </Box>
     </ChakraProvider>
