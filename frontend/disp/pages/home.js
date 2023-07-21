@@ -3,8 +3,12 @@ import Link from "next/link";
 const classes = require("../styles/home_test.module.css");
 const ninja_img1 = require("../assets/ninja.jpg");
 const ninja_img2 = require("../assets/ninjas.jpg");
-
+import { useRouter } from "next/router";
 const Home = () => {
+  const router=useRouter();
+  function goToMultiplayer(){
+    router.push('/multiplayer_home')
+  }
   return (
     <div class={classes["homepage"]}>
       <h1 class="text-white font-extrabold text-6xl ">Choose a mode</h1>
@@ -28,7 +32,7 @@ const Home = () => {
             width="200"
             style={{ borderRadius: 100, margin: 50 }}
           />
-          <button class="text-white font-extrabold text-6xl">
+          <button onClick={goToMultiplayer} class="text-white font-extrabold text-6xl">
             Multiplayer
           </button>
         </div>
