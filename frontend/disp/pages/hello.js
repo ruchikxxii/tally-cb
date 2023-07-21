@@ -42,9 +42,10 @@ export default function TypingTest() {
         setInput((curr) => {
           return curr.substring(0, curr.length - 1);
         });
+        setIndex((ind) => ind - 1);
       }
     }
-    // console.log(input, isCorrect, correctWords);
+    console.log(input);
   }
   useEffect(() => {
     window.addEventListener("keydown", handleUserKeyPress);
@@ -85,9 +86,14 @@ export default function TypingTest() {
             Please press Spacebar to start
           </p>
         )}
-        <p className="text-2xl text-white font-mono">
-          Time Remaining: <span className="font-bold">{timeRemaining}</span>
+        <p className="text-2xl text-white font-mono flex flex-row items-center">
+          Time Remaining
+          <span>
+            <img src="./timer2.gif" width="42px" />
+          </span>{" "}
+          <span className="font-bold">:{timeRemaining}</span>
         </p>
+
         <p className="text-2xl text-white font-mono">
           Current Progress:{" "}
           <span className="font-bold">
