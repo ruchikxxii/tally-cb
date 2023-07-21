@@ -14,6 +14,7 @@ const multiplayer_home = () => {
     const socket=useContext(SocketContext);
     useEffect(()=>{
         socket.on('room code',(details)=>{
+            console.log(details);
             setInRoom(true);
             setRoomName(details.room_name);
             setQuestion(details.question);

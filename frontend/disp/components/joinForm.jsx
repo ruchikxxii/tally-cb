@@ -16,14 +16,19 @@ import { useEffect,useContext } from 'react'
 import { SocketContext } from '@/context/socket'
 import { gameContext } from '@/context/room';
 import { FormLabel } from "react-bootstrap";
+import{ useRouter }from "next/router";
 export default function JoinForm({openJoinForm,closeJoinForm}){
+  const router=useRouter();
   const socket=useContext(SocketContext);
-  const {inRoom,setInRoom,setRoomName,setUsername}=useContext(gameContext);
+  const {inRoom,setInRoom,setRoomName,setUsername,setQuestion}=useContext(gameContext);
   useEffect(()=>{
     socket.on('join room status',(status)=>{
       console.log(status)
       if(status.success){
         setInRoom(true);
+        setRoomName(formikss.values.room_name);
+        setQuestion(status.question);
+        router.push('/typing_room');
       }
     })
   },[socket])
