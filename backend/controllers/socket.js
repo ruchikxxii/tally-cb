@@ -15,14 +15,14 @@ const configureSockets = (server) => {
         console.log(socket.id)
         socket.on('create room',(details)=> {
             var room_name = `${details.name}_${Math.floor(Math.random()*10000)}`;
-            var prog = {};
-            prog[details.name] = {words:0,time:0};
+            var prog = [];
+            prog.push({name:details.name,result:{words:0,time:0}})
             var ques = getRandomSentences(details.speed*details.time);
             rooms.push({
                 name: room_name,
                 players : details.players,
                 playerCount : 1,
-                progrss : {},
+                progrss : prog,
                 time: details.time,
                 question : ques,
                 started : false,
@@ -47,7 +47,7 @@ const configureSockets = (server) => {
             else{
                 socket.join(details.room_name);
                 rooms[i].playerCount+=1;
-                rooms[i].progrss[details.name] = {words:0,time:0};
+                rooms[i].progrss.push({name:details.name,result:{words:0,time:0}});
                 socket.emit("join room status",{success:true,question:rooms[i].question})
             }
         })
@@ -56,20 +56,22 @@ const configureSockets = (server) => {
                 return room.name === room_name;
             })
             if(i==-1){
-                socket.emit("start room status",{success:false,error:"room not found"})
+                socket.emit("start status",{success:false,error:"room not found"})
             }
             else if(rooms[i].started===true){
-                socket.emit("start room status",{success:false,error:"room already started"})
+                socket.emit("start status",{success:false,error:"room already started"})
             }
             else if(rooms[i].playerCount<rooms[i].players){
-                socket.emit("start room status",{success:false,error:"room not full"})
+                socket.emit("start status",{success:false,error:"room not full"})
             }
             else{
                 setTimeout(()=>{
                     rooms[i].finished = true
                     io.to(room_name).emit("timer end",rooms[i].progrss);
+                    socket.emit("timer end",rooms[i].progrss)
                 },rooms[i].time*60*1000);
-                io.to(room_name).emit("start room status",{success:true})
+                io.to(room_name).emit("start status",{success:true})
+                socket.emit('start status',{success:true})
             }
         })
         socket.on("update progress",(details)=>{
@@ -86,12 +88,15 @@ const configureSockets = (server) => {
                 socket.emit("update status",{success:false,error:"room has finished"})
             }
             else{
+                var j = rooms[i].progrss.findIndex((obj)=>{
+                    return obj.name===details.name
+                });
                 if(details.end===true){
-                    rooms[i].progrss[details.name].time = new Date();
+                    rooms[i].progrss[j].time = new Date();
                     io.to(details.room_name).emit("progress update",rooms[i].progrss)
                 }
                 else{
-                    rooms[i].progrss[details.name].words += 1;
+                    rooms[i].progrss[j].result.words = details.correctWords;
                     io.to(details.room_name).emit("progress update",rooms[i].progrss)
                 }
             }

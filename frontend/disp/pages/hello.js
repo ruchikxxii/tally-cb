@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { gameContext } from "@/context/room";
 import { socket, SocketContext } from "@/context/socket";
 import { Box,Flex } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 export default function TypingTest() {
-  const { question, timer, roomName } = useContext(gameContext);
+  const router = useRouter();
+  const { question, timer, roomName,username,setResult } = useContext(gameContext);
   const text = question.trim();
   const [input, setInput] = useState("");
   const [isStart, setIsStart] = useState(false);
@@ -63,10 +65,19 @@ export default function TypingTest() {
     }
   },[isStart])
   useEffect(()=>{
-    socket.on('start room status',(res)=>{
-      console.log(res);
+    socket.emit("update progress",{
+      room_name:roomName,
+      name:username,
+      correctWords:correctWords,
+      end:false,
     })
-  },[socket])
+  },[correctWords])
+  useEffect(()=>{
+    socket.on('timer end',(res)=>{
+      setResult(res);
+      router.push("/results")
+    })
+  },[])
   useEffect(() => {
     console.log("rerun");
     if (isStart) {
