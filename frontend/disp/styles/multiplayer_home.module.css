@@ -1,0 +1,29 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    height: 100vh;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.options {
+    height: 25vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
+}
+.link{
+    background-color: aquamarine;
+    color: black;
+    padding: 1%;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px 0 aquamarine;
+}
+
+.link:hover{
+    background-color: blueviolet;
+    color: white;
+    box-shadow: 0 8px 16px 0 blueviolet;
+}
