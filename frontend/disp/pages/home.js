@@ -17,7 +17,7 @@ const Home = () => {
           />
           <Link
             href="/practice_form"
-            class="text-white font-extrabold text-6xl"
+            class={`text-white font-extrabold text-6xl ${classes['link']}`}
           >
             Practice
           </Link>
