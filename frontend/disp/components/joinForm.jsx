@@ -15,9 +15,10 @@ import {GiAssassinPocket} from 'react-icons/gi'
 import { useEffect,useContext } from 'react'
 import { SocketContext } from '@/context/socket'
 import { gameContext } from '@/context/room';
+import { FormLabel } from "react-bootstrap";
 export default function JoinForm({openJoinForm,closeJoinForm}){
   const socket=useContext(SocketContext);
-  const {inRoom,setInRoom,roomName,setRoomName}=useContext(gameContext);
+  const {inRoom,setInRoom,setRoomName,setUsername}=useContext(gameContext);
   useEffect(()=>{
     socket.on('join room status',(status)=>{
       console.log(status)
@@ -29,9 +30,11 @@ export default function JoinForm({openJoinForm,closeJoinForm}){
     const formikss=useFormik({
         initialValues:{
             room_name:"",
+            name:""
         },
         onSubmit:(values)=>{
             // window.alert(JSON.stringify(values));
+            setUsername(formikss.values.name);
             socket.emit('join room',values);
         }
     })
@@ -42,11 +45,12 @@ export default function JoinForm({openJoinForm,closeJoinForm}){
             <FormControl>
         <ModalOverlay />
         <ModalContent style={{backgroundColor:"blueviolet",color:"white"}}>
-          <ModalHeader>Enter Room Code</ModalHeader>
+          <ModalHeader>Enter Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-
-
+          <FormLabel>Enter Your Name</FormLabel>
+            <Input isRequired name="name" onChange={formikss.handleChange} value={formikss.values.name} style={{backgroundColor:"#EDE4FF",color:"black"}} placeholder="Enter Name Here"/>
+            <FormLabel>Enter Room Code</FormLabel>
             <Input isRequired name="room_name" onChange={formikss.handleChange} value={formikss.values.room_name} style={{backgroundColor:"#EDE4FF",color:"black"}} placeholder="Enter Code Here"/>
           </ModalBody>
 

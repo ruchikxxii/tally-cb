@@ -19,17 +19,18 @@ import { useContext } from "react";
 import { gameContext } from "@/context/room";
 export default function CreateForm({ openCreateForm, closeCreateForm }) {
   const socket = useContext(SocketContext);
-  const {username}=useContext(gameContext);
+  const {setUsername}=useContext(gameContext);
   const formik = useFormik({
     initialValues: {
       players: 0,
       time: 0,
       speed: 0,
+      name:"",
     },
     onSubmit: (values) => {
       // window.alert(JSON.stringify(values));
-      let details={...values,name:username}
-      socket.emit('create room',details);
+      setUsername(formik.values.name);
+      socket.emit('create room',values);
     },
   });
 
@@ -44,6 +45,14 @@ export default function CreateForm({ openCreateForm, closeCreateForm }) {
             <ModalHeader>Create Room</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
+            <FormLabel>Enter Your Name</FormLabel>
+              <Input
+                onChange={formik.handleChange}
+                name="name"
+                value={formik.values.name}
+                style={{ backgroundColor: "#EDE4FF", color: "black" }}
+                placeholder="Enter Your Name"
+              />
               <FormLabel>Number of Players</FormLabel>
               <Input
                 onChange={formik.handleChange}
