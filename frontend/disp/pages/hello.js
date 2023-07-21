@@ -78,6 +78,16 @@ export default function TypingTest() {
       router.push("/results")
     })
   },[])
+  useEffect(()=>{
+    if(index>=text.length){
+      socket.emit("update progress",{
+        room_name:roomName,
+        name:username,
+        correctWords:correctWords,
+        end:true,
+      })
+    }
+  },[index])
   useEffect(() => {
     console.log("rerun");
     if (isStart) {
@@ -134,7 +144,7 @@ export default function TypingTest() {
           Words Per Minute:{" "}
           <span className="font-bold">
             {" "}
-            {correctWords / ((60 - timeRemaining) / 60)}
+            {correctWords / ((timer*60 - timeRemaining) / 60)}
           </span>
         </p>
       </div>

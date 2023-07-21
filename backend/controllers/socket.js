@@ -48,7 +48,7 @@ const configureSockets = (server) => {
                 socket.join(details.room_name);
                 rooms[i].playerCount+=1;
                 rooms[i].progrss.push({name:details.name,result:{words:0,time:0}});
-                socket.emit("join room status",{success:true,question:rooms[i].question})
+                socket.emit("join room status",{success:true,question:rooms[i].question,time:rooms[i].time,speed:rooms[i].speed})
             }
         })
         socket.on('start room',(room_name)=>{
@@ -70,6 +70,7 @@ const configureSockets = (server) => {
                     io.to(room_name).emit("timer end",rooms[i].progrss);
                     socket.emit("timer end",rooms[i].progrss)
                 },rooms[i].time*60*1000);
+                rooms[i].started = true;
                 io.to(room_name).emit("start status",{success:true})
                 socket.emit('start status',{success:true})
             }
@@ -92,12 +93,18 @@ const configureSockets = (server) => {
                     return obj.name===details.name
                 });
                 if(details.end===true){
-                    rooms[i].progrss[j].time = new Date();
+                    let t = new Date();
+                    rooms[i].progrss[j].result.time = t.toLocaleTimeString();
                     io.to(details.room_name).emit("progress update",rooms[i].progrss)
+                    socket.emit("progress update",rooms[i].progrss)
+                    if(rooms[i].players===1){
+                        socket.emit("timer end",rooms[i].progrss)
+                    }
                 }
                 else{
                     rooms[i].progrss[j].result.words = details.correctWords;
                     io.to(details.room_name).emit("progress update",rooms[i].progrss)
+                    socket.emit("progress update",rooms[i].progrss)
                 }
             }
         })

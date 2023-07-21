@@ -28,7 +28,7 @@ const Results = () => {
       <div className="flex flex-col gap-2 text-2xl font-bold">
         <div className="flex flex-row gap-8">
           <h3>{ent.name}</h3>
-          <p>date lite</p>
+          <p>{ent.result.time}</p>
           <p>{ent.result.words}</p>
         </div>
 
