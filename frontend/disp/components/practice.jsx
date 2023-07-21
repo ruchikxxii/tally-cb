@@ -28,7 +28,7 @@ export default function Practice() {
   };
   function handleKeyPress(e) {
     console.log(e);
-    if ((e.keyCode!=8 && e.keyCode!=16 && e.keyCode!=20)) {
+    if (e.keyCode != 8 && e.keyCode != 16 && e.keyCode != 20) {
       setUserInput((curr) => curr + e.key);
       console.log(userInput);
     } else if (e.keyCode == 8) {
@@ -61,7 +61,11 @@ export default function Practice() {
           className="hidden text-black px-2 py-1 border border-gray-300 rounded-md w-full"
         />
       </div>
-      <StartAnimation/>
+      {/* <StartAnimation
+        onClick={() => {
+          console.log("presses");
+        }}
+      /> */}
     </div>
   );
 }
