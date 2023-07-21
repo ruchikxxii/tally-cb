@@ -1,8 +1,9 @@
 // pages/results.js
 
-import React from "react";
+import { gameContext } from "@/context/room";
+import React, { useContext } from "react";
 import { Divider } from "@chakra-ui/react";
-const entries = [
+var entries = [
   {
     name: "Player 1",
     result: { time: new Date(), words: 50 },
@@ -19,6 +20,8 @@ const entries = [
 ];
 
 const Results = () => {
+  const {result} = useContext(gameContext);
+  entries = result;
   const sortedEntries = entries.sort((a, b) => a.result.time - b.result.time);
   const resultEntries = sortedEntries.map((ent) => {
     return (
