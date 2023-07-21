@@ -1,4 +1,4 @@
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { gameContext } from "@/context/room";
 import LeaderboardProgressBar from "../components/leaderboard";
 const players = [
@@ -8,7 +8,7 @@ const players = [
   //to be fetched
 ];
 export default function TypingRoom() {
-  const {question}=useContext(gameContext);
+  const { question } = useContext(gameContext);
   const [text, setText] = useState(question);
 
   const [input, setInput] = useState("");
@@ -79,10 +79,10 @@ export default function TypingRoom() {
   }, [isStart]);
   return (
     <div className="flex flex-col items-center bg-black text-white gap-7 mt-28">
-      <div className="overflow-hidden">
+      <div className="w-96">
         <p
           id="me"
-          className="font-mono transition-all"
+          className="font-mono transition-all w-fit whitespace-nowrap"
           style={{ transform: `translateX(-${input.length * 1}ch)` }}
         >
           {question}
