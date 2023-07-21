@@ -2,7 +2,9 @@ import Image from 'next/image'
 import { useDisclosure } from '@chakra-ui/react'
 const mult_ninja = require('../assets/ninja_mult.jpg')
 const classes = require('../styles/multiplayer_home.module.css')
-
+import { SocketContext } from '@/context/socket'
+import { gameContext } from '@/context/room'
+import { useContext} from 'react'
 import {
     Modal,
     ModalOverlay,
@@ -18,6 +20,7 @@ import {
   import {GiAssassinPocket} from 'react-icons/gi'
 
 const multiplayer_home = () => {
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (<div className={classes['home']}>
         <Image src={mult_ninja} 
