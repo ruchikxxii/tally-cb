@@ -2,25 +2,22 @@ import Image from 'next/image'
 import { useDisclosure } from '@chakra-ui/react'
 const mult_ninja = require('../assets/ninja_mult.jpg')
 const classes = require('../styles/multiplayer_home.module.css')
-import { SocketContext } from '@/context/socket'
-import { gameContext } from '@/context/room'
-import { useContext} from 'react'
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    Input
-  } from '@chakra-ui/react'
 import CreateForm from '@/components/createForm'
 import JoinForm from '@/components/joinForm'
-import {GiAssassinPocket} from 'react-icons/gi'
+import { useEffect,useContext } from 'react'
+import { SocketContext } from '@/context/socket'
+import { gameContext } from '@/context/room';
 
-const multiplayer_home = () => {
+const multiplayer_home = () => { 
+    const {inRoom,setInRoom,roomName,setRoomName}=useContext(gameContext);
+    const socket=useContext(SocketContext);
+    useEffect(()=>{
+        socket.on('room code',(room_name)=>{
+            console.log(room_name);
+            setInRoom(true);
+            setRoomName(room_name);
+        })
+    },[socket])
     const {isOpen:openCreateForm,onOpen:onCreateForm,onClose:closeCreateForm}=useDisclosure();
 
     const { isOpen:openJoinForm, onOpen:onJoinForm, onClose:closeJoinForm } = useDisclosure()
@@ -30,6 +27,7 @@ const multiplayer_home = () => {
             style = {{borderRadius:100,
                 boxShadow:"0 8px 16px 0 blueviolet"
             }}
+            alt='A Ninja Floating'
         />
         <CreateForm openCreateForm={openCreateForm} closeCreateForm={closeCreateForm} />
         <JoinForm openJoinForm={openJoinForm} closeJoinForm={closeJoinForm} />

@@ -16,7 +16,7 @@ export default function socketFunctions(){
     // socket.emit("create room",details);
     // socket.emit("join room",details);
     // socket.emit("update progress",details)
-    socket.on("room code",(room_name)=>{
-        setRoom(room_name);
-    })
+    // socket.on("room code",(room_name)=>{
+    //     setRoom(room_name);
+    // })
 }
