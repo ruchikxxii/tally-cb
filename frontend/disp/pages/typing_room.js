@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { gameContext } from "@/context/room";
+import { Box } from "@chakra-ui/react";
 import LeaderboardProgressBar from "../components/leaderboard";
 const players = [
   { id: 1, name: "Player 1", score: 90 },
