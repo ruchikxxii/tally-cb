@@ -79,14 +79,16 @@ export default function TypingRoom() {
   }, [isStart]);
   return (
     <div className="flex flex-col items-center bg-black text-white gap-7 mt-28">
-      <div className="w-96">
-        <p
+      <div className=" outerBox">
+        <Box>
+        <div
           id="me"
           className="font-mono transition-all w-fit whitespace-nowrap"
           style={{ transform: `translateX(-${input.length * 1}ch)` }}
         >
-          {question}
-        </p>
+          {text}
+        </div>
+        </Box>
 
         <div className="w-5 px-1 border-2 border-white animate-custom-pulse"></div>
       </div>
