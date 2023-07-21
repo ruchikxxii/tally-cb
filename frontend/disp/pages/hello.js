@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { gameContext } from "@/context/room";
-import { SocketContext } from "@/context/socket";
+import { socket, SocketContext } from "@/context/socket";
 import { Box,Flex } from "@chakra-ui/react";
 export default function TypingTest() {
-  const { question, timer } = useContext(gameContext);
+  const { question, timer, roomName } = useContext(gameContext);
   const text = question.trim();
   const [input, setInput] = useState("");
   const [isStart, setIsStart] = useState(false);
@@ -57,6 +57,16 @@ export default function TypingTest() {
       window.removeEventListener("keydown", handleUserKeyPress);
     };
   }, [isStart, input]);
+  useEffect(()=>{
+    if(isStart){
+      socket.emit('start room',roomName);
+    }
+  },[isStart])
+  useEffect(()=>{
+    socket.on('start room status',(res)=>{
+      console.log(res);
+    })
+  },[socket])
   useEffect(() => {
     console.log("rerun");
     if (isStart) {
