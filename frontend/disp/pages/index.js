@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
+import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const router =useRouter();
-  function changePage(){
-    router.push('/test');
+  const router = useRouter();
+  function changePage() {
+    router.push("/test");
   }
   return (
     <div className="page my-16 text-white">
@@ -26,11 +27,11 @@ export default function Home() {
             Ready to test your typing speed and compete with the fastest? Join
             now and become a typing wizz!
           </div>
-          <a onClick={changePage}  id="start-exploring-button">
+          <Link href="/home" id="start-exploring-button">
             <div className="start-exploring__arrow" />
             Get Started
             <div className="start-exploring__arrow" />
-          </a>
+          </Link>
           <div className="hero__p" />
         </div>
         <div className="hero__aside">
@@ -52,8 +53,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="features-section">
-      </section>
+      <section className="features-section"></section>
     </div>
   );
 }
