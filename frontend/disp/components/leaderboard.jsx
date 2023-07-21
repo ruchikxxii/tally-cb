@@ -7,7 +7,7 @@ const LeaderboardProgressBar = ({ players }) => {
   const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
 
   return (
-    <div className="p-4 text-white text-xl font-bold">
+    <div className="p-4 text-white text-xl font-bold my-full-w">
       {sortedPlayers.map((player, index) => (
         <div key={player.id} className="mb-2">
           <div className="flex justify-between pr-6">
