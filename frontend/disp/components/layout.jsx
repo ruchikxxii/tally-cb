@@ -6,7 +6,7 @@ export default function Layout({children}){
         
         <>
         <SocketContext.Provider value={socket}>
-        <Navbar/>
+        {/* <Navbar/> */}
         {children}
         </SocketContext.Provider>
         </>
