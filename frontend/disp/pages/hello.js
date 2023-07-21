@@ -73,10 +73,10 @@ export default function TypingTest() {
   }, [isStart]);
   return (
     <div className="flex flex-col items-center bg-black text-white gap-7 mt-28">
-      <div className="overflow-hidden">
+      <div className="w-96">
         <p
           id="me"
-          className="font-mono transition-all"
+          className="font-mono transition-all w-fit whitespace-nowrap"
           style={{ transform: `translateX(-${input.length * 1}ch)` }}
         >
           {text}
