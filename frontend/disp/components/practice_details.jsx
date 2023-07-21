@@ -21,7 +21,7 @@ function PracticeDetails() {
     console.log("Name:", name);
     console.log("Time:", time);
     console.log("Speed:", speed);
-    router.push("/practice_mode");
+    router.push("/hello");
   };
 
   return (

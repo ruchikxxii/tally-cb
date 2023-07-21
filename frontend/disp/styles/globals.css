@@ -99,7 +99,7 @@ body {
     padding: 1em;
   }
 }
-:hover #start-exploring-button{
+:hover #start-exploring-button {
   cursor: pointer;
 }
 #start-exploring-button {
@@ -273,4 +273,19 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+@keyframes customPulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-custom-pulse {
+  animation: customPulse 0.5s infinite;
 }

@@ -15,11 +15,17 @@ export default function Practice() {
     setUserInput("");
   }, [currentSentenceIndex]);
 
-  const currentSentence = sentences[currentSentenceIndex];
+  const [currentSentence, setCurrentSentence] = useState(
+    sentences[currentSentenceIndex]
+  );
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
     // console.log(userInput);
+    setCurrentSentence((curr) => {
+      return curr.substring(1, curr.length);
+    });
+    console.log(currentSentence);
   };
 
   const getCharacterColor = (char, userChar) => {
@@ -43,7 +49,7 @@ export default function Practice() {
       onKeyDown={handleKeyPress}
     >
       <div className="p-4 rounded-lg shadow-md">
-        <p className="text-xl font-semibold mb-4">
+        <p className="text-xl font-semibold mb-4 first-letter:underline ">
           {currentSentence.split("").map((char, index) => (
             <span
               key={index}
