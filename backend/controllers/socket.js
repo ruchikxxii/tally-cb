@@ -15,17 +15,21 @@ const configureSockets = (server) => {
         console.log(socket.id)
         socket.on('create room',(details)=> {
             var room_name = `${details.name}_${Math.floor(Math.random()*10000)}`;
+            var prog = {};
+            prog[details.name] = {words:0,time:0};
+            var ques = getRandomSentences(details.speed*details.time);
             rooms.push({
                 name: room_name,
                 players : details.players,
-                playerCount : 0,
+                playerCount : 1,
                 progrss : {},
                 time: details.time,
-                question : getRandomSentences(details.speed*details.time),
+                question : ques,
                 started : false,
                 finished : false
             })
-            socket.emit('room code',room_name);
+            socket.join(details.room_name);
+            socket.emit('room code',{room_name:room_name,question:ques});
         })
         socket.on('join room',(details)=> {
             var i = rooms.findIndex((room)=> {

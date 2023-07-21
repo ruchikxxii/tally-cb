@@ -7,15 +7,19 @@ import JoinForm from '@/components/joinForm'
 import { useEffect,useContext } from 'react'
 import { SocketContext } from '@/context/socket'
 import { gameContext } from '@/context/room';
-
+import { useRouter } from 'next/router'
 const multiplayer_home = () => { 
-    const {inRoom,setInRoom,roomName,setRoomName}=useContext(gameContext);
+    const router=useRouter();
+    const {inRoom,setInRoom,roomName,setRoomName,setQuestion}=useContext(gameContext);
     const socket=useContext(SocketContext);
     useEffect(()=>{
-        socket.on('room code',(room_name)=>{
-            console.log(room_name);
+        socket.on('room code',(details)=>{
+            console.log(details);
             setInRoom(true);
-            setRoomName(room_name);
+            setRoomName(details.room_name);
+            setQuestion(details.question);
+            router.push('/typing_room');
+
         })
     },[socket])
     const {isOpen:openCreateForm,onOpen:onCreateForm,onClose:closeCreateForm}=useDisclosure();

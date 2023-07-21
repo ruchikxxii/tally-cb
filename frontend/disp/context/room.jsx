@@ -7,9 +7,10 @@ export default function GameContext({children}){
  const [username,setUsername]=useState("");
  const [speed,setSpeed]=useState(0);
  const [roomName,setRoomName]=useState("");
+ const [question,setQuestion]=useState("");
     return (
         <gameContext.Provider value={{
-            timer,setTimer,inRoom,setInRoom,username,setUsername,speed,roomName,setSpeed,setRoomName
+            question,setQuestion,timer,setTimer,inRoom,setInRoom,username,setUsername,speed,roomName,setSpeed,setRoomName
           }}>
             {children}
           </gameContext.Provider>

@@ -13,21 +13,37 @@ import {
 import { useRouter } from "next/router";
 import { gameContext } from "@/context/room";
 import { useContext } from "react";
+import { SocketContext } from "@/context/socket";
 function PracticeDetails() {
-  const { username, setUsername } = useContext(gameContext);
+  const { setUsername,setRoomName,setTimer,setSpeed,setQuestion } = useContext(gameContext);
+  const socket = useContext(SocketContext);
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
-  const [speed, setSpeed] = useState(0);
+  const [speed1, setSpeed1] = useState(0);
   const router = useRouter();
-  useEffect(() => {
-    console.log(username);
-  }, [username]);
+  // useEffect(() => {
+  //   console.log(username);
+  // }, [username]);
   const handleSubmit = () => {
     // Handle form submission here
-    console.log("Name:", name);
+    // console.log("Name:", name);
+    // setUsername(name);
+    // console.log("Time:", time);
+    // console.log("Speed:", speed);
     setUsername(name);
-    console.log("Time:", time);
-    console.log("Speed:", speed);
+    setTimer(time);
+    setSpeed(speed1);
+    socket.emit('create room',{
+      name:name,
+      time:time,
+      speed:speed1,
+      players:1,
+    })
+    socket.on('room code',(res)=>{
+      console.log(res)
+      setRoomName(res.room_name);
+      setQuestion(res.question);
+    })
     router.push("/hello");
   };
 
@@ -75,9 +91,9 @@ function PracticeDetails() {
           </FormLabel>
           <RadioGroup
             id="speed"
-            value={speed}
+            value={speed1}
             size="lg"
-            onChange={(e) => setSpeed(e)}
+            onChange={(e) => setSpeed1(e)}
           >
             <Stack direction="row" spacing={6}>
               <Radio value="1">1</Radio>

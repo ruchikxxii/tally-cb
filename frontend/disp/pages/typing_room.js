@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
+import { gameContext } from "@/context/room";
 import LeaderboardProgressBar from "../components/leaderboard";
 const players = [
   { id: 1, name: "Player 1", score: 90 },
@@ -7,7 +8,9 @@ const players = [
   //to be fetched
 ];
 export default function TypingRoom() {
-  const [text, setText] = useState("hey how are you doing");
+  const {question}=useContext(gameContext);
+  const [text, setText] = useState(question);
+
   const [input, setInput] = useState("");
   const [isStart, setIsStart] = useState(false);
   const [totalWords, setTotalWords] = useState(text.split(" ").length);
@@ -82,7 +85,7 @@ export default function TypingRoom() {
           className="font-mono transition-all"
           style={{ transform: `translateX(-${input.length * 1}ch)` }}
         >
-          {text}
+          {question}
         </p>
 
         <div className="w-5 px-1 border-2 border-white animate-custom-pulse"></div>
