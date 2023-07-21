@@ -55,6 +55,7 @@ export default function TypingTest() {
     };
   }, [isStart, input]);
   useEffect(() => {
+    console.log("rerun");
     if (isStart) {
       if (timeRemaining > 0) {
         const timerInterval = setInterval(() => {
@@ -66,7 +67,7 @@ export default function TypingTest() {
         onTimeUp();
       }
     }
-  }, [isStart, timeRemaining, onTimeUp]);
+  }, [isStart]);
   return (
     <div className="flex flex-col items-center bg-black text-white gap-7 mt-28">
       <div className="overflow-hidden">
