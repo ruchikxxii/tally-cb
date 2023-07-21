@@ -1,0 +1,17 @@
+.typepage{ 
+    background-color: black;
+    color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.typepage h1{
+    width: 600px;
+    padding: 2%;
+    text-overflow: hidden;
+    white-space: nowrap;
+}

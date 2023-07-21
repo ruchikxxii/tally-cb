@@ -36,7 +36,7 @@ export default function TypingTest() {
     return () => {
       window.removeEventListener("keydown", handleUserKeyPress);
     };
-  }, []);
+  }, [isStart,input]);
 
   return (
     <div className="flex flex-col items-center bg-black text-white">
