@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { gameContext } from "@/context/room";
+import { SocketContext } from "@/context/socket";
 
 export default function TypingTest() {
-  const [text, setText] = useState("hey how are you doing");
+  const {question,timer} = useContext(gameContext);
+  const text = question;
   const [input, setInput] = useState("");
   const [isStart, setIsStart] = useState(false);
   const [totalWords, setTotalWords] = useState(text.split(" ").length);
   const [correctWords, setCorrectWords] = useState(0);
   const [isCorrect, setIsCorrect] = useState(true);
   const [index, setIndex] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(10);
+  const [timeRemaining, setTimeRemaining] = useState(timer*60);
   function onTimeUp() {
     console.log("over");
   }

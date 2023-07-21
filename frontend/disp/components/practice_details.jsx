@@ -13,8 +13,9 @@ import {
 import { useRouter } from "next/router";
 import { gameContext } from "@/context/room";
 import { useContext } from "react";
+import { SocketContext } from "@/context/socket";
 function PracticeDetails() {
-  const { setUsername,setRoomName,setTimer,setSpeed } = useContext(gameContext);
+  const { setUsername,setRoomName,setTimer,setSpeed,setQuestion } = useContext(gameContext);
   const socket = useContext(SocketContext);
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
@@ -38,11 +39,12 @@ function PracticeDetails() {
       speed:speed1,
       players:1,
     })
-    socket.on('room code',(room_name)=>{
-      console.log(room_name)
-      setRoomName(room_name);
+    socket.on('room code',(res)=>{
+      console.log(res)
+      setRoomName(res.room_name);
+      setQuestion(res.question);
     })
-    // router.push("/hello");
+    router.push("/hello");
   };
 
   return (
@@ -89,7 +91,7 @@ function PracticeDetails() {
           </FormLabel>
           <RadioGroup
             id="speed"
-            value={speed}
+            value={speed1}
             size="lg"
             onChange={(e) => setSpeed1(e)}
           >
