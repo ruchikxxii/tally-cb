@@ -8,6 +8,10 @@ export default function TypingTest() {
   const [correctWords, setCorrectWords] = useState(0);
   const [isCorrect, setIsCorrect] = useState(true);
   const [index, setIndex] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(60);
+  function onTimeUp() {
+    console.log("over");
+  }
   function handleUserKeyPress(e) {
     if (!isStart) {
       if (e.keyCode == 32) {
@@ -49,7 +53,19 @@ export default function TypingTest() {
       window.removeEventListener("keydown", handleUserKeyPress);
     };
   }, [isStart, input]);
+  useEffect(() => {
+    if (isStart) {
+      if (timeRemaining > 0) {
+        const timerInterval = setInterval(() => {
+          setTimeRemaining((prevTime) => prevTime - 1);
+        }, 1000);
 
+        return () => clearInterval(timerInterval);
+      } else {
+        onTimeUp();
+      }
+    }
+  }, [isStart, timeRemaining, onTimeUp]);
   return (
     <div className="flex flex-col items-center bg-black text-white gap-7 mt-28">
       <div className="overflow-hidden">
@@ -70,10 +86,7 @@ export default function TypingTest() {
           </p>
         )}
         <p className="text-2xl text-white font-mono">
-          Time Remaining:{" "}
-          <span className="font-bold">
-            {correctWords}/{totalWords} correct words
-          </span>
+          Time Remaining: <span className="font-bold">{timeRemaining}</span>
         </p>
         <p className="text-2xl text-white font-mono">
           Current Progress:{" "}
@@ -82,7 +95,11 @@ export default function TypingTest() {
           </span>
         </p>
         <p className="text-2xl text-white font-mono">
-          Words Per Minute: <span className="font-bold"> 25</span>
+          Words Per Minute:{" "}
+          <span className="font-bold">
+            {" "}
+            {correctWords / ((60 - timeRemaining) / 60)}
+          </span>
         </p>
       </div>
     </div>
