@@ -1,8 +1,19 @@
 import { createContext,useState} from "react";
 
-export const [inRoom,setInRoom]=useState(false);
-export const [timer,setTimer]=useState(0);
-export const [username,setUsername]=useState("");
-export const [speed,setSpeed]=useState(0);
-export const [roomName,setRoomName]=useState("");
-export const GameContext=createContext();
+export const gameContext=createContext(null);
+export default function GameContext({children}){
+ const [timer,setTimer]=useState(0);
+ const [inRoom,setInRoom]=useState(false);
+ const [username,setUsername]=useState("");
+ const [speed,setSpeed]=useState(0);
+ const [roomName,setRoomName]=useState("");
+    return (
+        <gameContext.Provider value={{
+            timer,setTimer,inRoom,setInRoom,username,setUsername,speed,roomName,setSpeed,setRoomName
+          }}>
+            {children}
+          </gameContext.Provider>
+    );
+}
+
+

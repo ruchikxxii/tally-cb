@@ -4,7 +4,10 @@ import { Heading } from "@chakra-ui/react";
 import { Radio, RadioGroup } from "@chakra-ui/react";
 import Image from "next/image";
 import my_img from "../public/my-img.png";
+
 export default function PracticeForm() {
+
+
   return (
     <div className="flex flex-col bg-black h-full px-10 pt-5 gap-4">
       <div className="flex flex-col gap-2">
