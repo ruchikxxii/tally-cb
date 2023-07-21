@@ -291,8 +291,17 @@ body {
   animation: customPulse 0.5s infinite;
 }
 #me {
-  font-size: 46px;
+  font-size: 2.5rem;
+  position: relative;
+  left: 49.95%;
 }
 .my-full-w {
   width: 450px;
+}
+
+.outerBox{
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
