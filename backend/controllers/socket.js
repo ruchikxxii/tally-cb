@@ -3,8 +3,16 @@ const getRandomSentences = require('../utilities').getRandomSentences
 
 const configureSockets = (server) => {
     var rooms = [];
-    const io = socketio(server);
+    const io = socketio(server,{
+        cors:{
+            origin: 'http://localhost:3000',
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+        }
+    });
     io.on('connection',(socket)=>{
+        console.log(socket.id)
         socket.on('create room',(details)=> {
             var room_name = `${details.name}_${Math.floor(Math.random()*10000)}`;
             rooms.push({
