@@ -8,7 +8,7 @@ export default function TypingTest() {
   const [correctWords, setCorrectWords] = useState(0);
   const [isCorrect, setIsCorrect] = useState(true);
   const [index, setIndex] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(60);
+  const [timeRemaining, setTimeRemaining] = useState(10);
   function onTimeUp() {
     console.log("over");
   }
@@ -59,7 +59,10 @@ export default function TypingTest() {
     if (isStart) {
       if (timeRemaining > 0) {
         const timerInterval = setInterval(() => {
-          setTimeRemaining((prevTime) => prevTime - 1);
+          setTimeRemaining((prevTime) => {
+            if (prevTime <= 0) return 0;
+            else return prevTime - 1;
+          });
         }, 1000);
 
         return () => clearInterval(timerInterval);
