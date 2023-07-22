@@ -19,7 +19,7 @@ import { useContext } from "react";
 import { gameContext } from "@/context/room";
 export default function CreateForm({ openCreateForm, closeCreateForm }) {
   const socket = useContext(SocketContext);
-  const {setUsername}=useContext(gameContext);
+  const {setUsername,setTimer,setPlayers}=useContext(gameContext);
   const formik = useFormik({
     initialValues: {
       players: 0,
@@ -30,6 +30,8 @@ export default function CreateForm({ openCreateForm, closeCreateForm }) {
     onSubmit: (values) => {
       // window.alert(JSON.stringify(values));
       setUsername(formik.values.name);
+      setTimer(formik.values.time);
+      setPlayers(2);
       socket.emit('create room',values);
     },
   });

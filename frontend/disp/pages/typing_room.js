@@ -116,7 +116,7 @@ import { useRouter } from "next/router";
 import LeaderboardProgressBar from "@/components/leaderboard";
 export default function Typing_room() {
   const router = useRouter();
-  const { question, timer, roomName,username,setResult,result } = useContext(gameContext);
+  const { question, timer, roomName,username,setResult,result,players,canJoin,setCanJoin } = useContext(gameContext);
   const text = question.trim();
   const [input, setInput] = useState("");
   const [isStart, setIsStart] = useState(false);
@@ -125,6 +125,11 @@ export default function Typing_room() {
   const [isCorrect, setIsCorrect] = useState(true);
   const [index, setIndex] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(timer * 60);
+  const [msg,setMsg] = useState("press space bar to start");
+  if(canJoin===true){
+    setIsStart(true);
+    setMsg("start");
+  }
   function onTimeUp() {
     console.log("over");
   }
@@ -169,12 +174,18 @@ export default function Typing_room() {
     return () => {
       window.removeEventListener("keydown", handleUserKeyPress);
     };
-  }, [isStart, input]);
+  }, [isStart, input,canJoin]);
   useEffect(()=>{
     if(isStart){
       socket.emit('start room',roomName);
     }
   },[isStart])
+  useEffect(()=>{
+    socket.on('can join',()=>{
+      setIsStart(true);
+      setMsg("press spacebar to start");
+    })
+  },[socket,setCanJoin])
   useEffect(()=>{
     socket.emit("update progress",{
       room_name:roomName,
@@ -239,7 +250,7 @@ export default function Typing_room() {
       <div className="flex flex-col mt-6">
         {isStart == false && (
           <p className="text-3xl text-white font-mono animate-pulse">
-            Please press Spacebar to start
+            {msg}
           </p>
         )}
         <p className="text-2xl text-white font-mono flex flex-row items-center">
@@ -265,7 +276,7 @@ export default function Typing_room() {
         </p>
       </div>
       <div>
-        <LeaderboardProgressBar players={result}/>
+        {players>1?<LeaderboardProgressBar players={result}/>:<></>}
       </div>
       <div>
         <h1 className="text-3xl text-white font-mono"> Room Name : {roomName}</h1>

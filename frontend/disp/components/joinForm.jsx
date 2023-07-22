@@ -20,14 +20,17 @@ import{ useRouter }from "next/router";
 export default function JoinForm({openJoinForm,closeJoinForm}){
   const router=useRouter();
   const socket=useContext(SocketContext);
-  const {inRoom,setInRoom,setRoomName,setUsername,setQuestion}=useContext(gameContext);
+  const {inRoom,setInRoom,setRoomName,setUsername,setQuestion,setTimer,setPlayers,setCanJoin}=useContext(gameContext);
   useEffect(()=>{
     socket.on('join room status',(status)=>{
       console.log(status)
       if(status.success){
         setInRoom(true);
-        setRoomName(formikss.values.room_name);
+        setRoomName(status.room_name);
         setQuestion(status.question);
+        setTimer(status.time);
+        setPlayers(2);
+        setCanJoin(status.canJoin);
         router.push('/typing_room');
       }
     })

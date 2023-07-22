@@ -15,7 +15,7 @@ import { gameContext } from "@/context/room";
 import { useContext } from "react";
 import { SocketContext } from "@/context/socket";
 function PracticeDetails() {
-  const { setUsername,setRoomName,setTimer,setSpeed,setQuestion } = useContext(gameContext);
+  const { setUsername,setRoomName,setTimer,setSpeed,setQuestion,setPlayers } = useContext(gameContext);
   const socket = useContext(SocketContext);
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
@@ -33,6 +33,7 @@ function PracticeDetails() {
     setUsername(name);
     setTimer(time);
     setSpeed(speed1);
+    setPlayers(1);
     socket.emit('create room',{
       name:name,
       time:time,
@@ -44,7 +45,7 @@ function PracticeDetails() {
       setRoomName(res.room_name);
       setQuestion(res.question);
     })
-    router.push("/hello");
+    router.push("/typing_room");
   };
 
   return (

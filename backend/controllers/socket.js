@@ -48,7 +48,15 @@ const configureSockets = (server) => {
                 socket.join(details.room_name);
                 rooms[i].playerCount+=1;
                 rooms[i].progrss.push({name:details.name,result:{words:0,time:0}});
-                socket.emit("join room status",{success:true,question:rooms[i].question,time:rooms[i].time,speed:rooms[i].speed})
+                if((rooms[i].playerCount+1)===rooms[i].players){
+                    socket.emit("join room status",{success:true,question:rooms[i].question,time:rooms[i].time,speed:rooms[i].speed,room_name:rooms[i].name,canJoin:true})
+                    console.log("hello")
+                    io.to(rooms[i].name).emit("can join");
+                    socket.emit('can join',{})
+                }
+                else{
+                    socket.emit("join room status",{success:true,question:rooms[i].question,time:rooms[i].time,speed:rooms[i].speed,room_name:rooms[i].name,canJoin:false})
+                }
             }
         })
         socket.on('start room',(room_name)=>{
