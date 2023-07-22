@@ -28,7 +28,7 @@ export default function CreateForm({ openCreateForm, closeCreateForm }) {
       name:"",
     },
     onSubmit: (values) => {
-      // window.alert(JSON.stringify(values));
+      window.alert(JSON.stringify(values));
       setUsername(formik.values.name);
       setTimer(formik.values.time);
       setPlayers(2);
@@ -61,6 +61,7 @@ export default function CreateForm({ openCreateForm, closeCreateForm }) {
                 name="players"
                 value={formik.values.players}
                 style={{ backgroundColor: "#EDE4FF", color: "black" }}
+                type="number"
                 placeholder="Enter Number of Players"
               />
               <FormLabel>Speed</FormLabel>

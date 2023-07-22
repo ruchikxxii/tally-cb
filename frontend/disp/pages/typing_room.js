@@ -116,28 +116,24 @@ import { useRouter } from "next/router";
 import LeaderboardProgressBar from "@/components/leaderboard";
 export default function Typing_room() {
   const router = useRouter();
-  const { question, timer, roomName,username,setResult,result,players,canJoin,setCanJoin } = useContext(gameContext);
+  const { question, timer, roomName,username,setResult,result,players,canJoin } = useContext(gameContext);
   const text = question.trim();
   const [input, setInput] = useState("");
-  const [isStart, setIsStart] = useState(false);
+  const [isStart, setIsStart] = useState(canJoin);
   const [totalWords, setTotalWords] = useState(text.split(" ").length);
   const [correctWords, setCorrectWords] = useState(0);
   const [isCorrect, setIsCorrect] = useState(true);
   const [index, setIndex] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(timer * 60);
-  const [msg,setMsg] = useState("press space bar to start");
-  if(canJoin===true){
-    setIsStart(true);
-    setMsg("start");
-  }
+  const [msg,setMsg] = useState("waiting for players");
   function onTimeUp() {
     console.log("over");
   }
   function handleUserKeyPress(e) {
     if (!isStart) {
-      if (e.keyCode == 32) {
-        setIsStart(true);
-      }
+      // if (e.keyCode == 32) {
+      //   setIsStart(true);
+      // }
     } else {
       if (index >= text.length) return;
       if (
@@ -174,18 +170,18 @@ export default function Typing_room() {
     return () => {
       window.removeEventListener("keydown", handleUserKeyPress);
     };
-  }, [isStart, input,canJoin]);
+  }, [isStart, input]);
   useEffect(()=>{
     if(isStart){
       socket.emit('start room',roomName);
     }
   },[isStart])
   useEffect(()=>{
-    socket.on('can join',()=>{
+    socket.on('can join',(res)=>{
+      console.log(res)
       setIsStart(true);
-      setMsg("press spacebar to start");
     })
-  },[socket,setCanJoin])
+  },[])
   useEffect(()=>{
     socket.emit("update progress",{
       room_name:roomName,
@@ -276,7 +272,7 @@ export default function Typing_room() {
         </p>
       </div>
       <div>
-        {players>1?<LeaderboardProgressBar players={result}/>:<></>}
+        {(players>1 && isStart)?<LeaderboardProgressBar players={result}/>:<></>}
       </div>
       <div>
         <h1 className="text-3xl text-white font-mono"> Room Name : {roomName}</h1>
