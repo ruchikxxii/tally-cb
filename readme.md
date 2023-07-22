@@ -18,13 +18,17 @@ Type Racer Game is a fun and interactive web-based typing game where players can
 
 2. Navigate to the backend folder
 
-3. Run **node index.js** in the terminal - this will start the backend server
+3. Run `npm install` to install the backend modules
 
-4. Navigate to the frontend/disp folder
+4. Run `node index.js` in the terminal - this will start the backend server
 
-5. Run **npm run dev** in another terminal - this will start the frontend
+5. Navigate to the frontend/disp folder
 
-6. Open your web browser and go to `http://localhost:3000` to access the Type Racer Game.
+6. Run `npm install` to install the frontend modules
+
+7. Run `npm run dev` in another terminal - this will start the frontend
+
+8. Open your web browser and go to `http://localhost:3000` to access the Type Racer Game.
 
 ## How to Play
 
